@@ -1,5 +1,3 @@
-console.log('hello!')
-
 import Vue from 'vue'
 import App from './App.vue'
 
