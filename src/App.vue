@@ -47,8 +47,6 @@
 </template>
 
 <script>
-  import { computed, reactive, toRefs, toRef, ref, watch } from 'vue'
-
   import useApi from './modules/api'
   import useSchema from './modules/schema'
   import useTable from './modules/table'
