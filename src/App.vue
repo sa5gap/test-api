@@ -91,7 +91,7 @@
     },
 
     methods: {
-      onSelectResource(resID) {
+      onSelectResource(resID: string) {
         if (this.data.resourceID != resID) {
           this.setResource(resID)
           this.clearParams()
@@ -100,15 +100,15 @@
         }
       },
 
-      onSortColumn(col) {
+      onSortColumn(col: string) {
         this.toggleSort(col)
       },
 
-      onClearFilter(f) {
+      onClearFilter(f: string) {
         this.clearFilter(f)
       },
 
-      getColumnClass(col) {
+      getColumnClass(col: string) {
         return (
           col === this.sort.column && (this.sort.direction ? 'desc' : 'asc')
         )
