@@ -46,13 +46,14 @@
 
 </template>
 
-<script>
+<script lang="ts">
+  import { defineComponent } from 'vue'
   import useApi from './modules/api'
   import useSchema from './modules/schema'
   import useTable from './modules/table'
   import { url, resourceID, resources } from './schema'
 
-  export default {
+  export default defineComponent({
     setup(props) {
       let { data, load, setResource, clearParams } = useApi(url)
       let { schema } = useSchema(resources, data)
@@ -113,7 +114,7 @@
         )
       },
     },
-  }
+  })
 </script>
 
 <style lang="scss">

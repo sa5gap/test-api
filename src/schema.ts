@@ -1,6 +1,11 @@
-const url = 'https://swapi.dev/api/'
-const resourceID = 'films'
-const resources = {
+type ResourceRecord = { [resourceCol: string]: [string, Object, boolean?] }
+type Resources = { [resourceID: string]: ResourceRecord }
+
+const url: string = 'https://swapi.dev/api/'
+
+const resourceID: string = 'films'
+
+const resources: Resources = {
   films: {
     title: ['Title', String, true],
     release_date: ['Date', Date],
@@ -15,4 +20,5 @@ const resources = {
   },
 }
 
+export type { Resources, ResourceRecord }
 export { url, resourceID, resources }

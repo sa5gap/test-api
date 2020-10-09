@@ -1,8 +1,19 @@
 import { reactive, watch, toRef } from 'vue'
 import axios from 'axios'
 
-export default function (url) {
-  let data = reactive({
+type apiData = {
+  ready: Boolean
+  resourceID: string | null
+  table: any[]
+  count: number
+  page: number
+  paginationMode: number
+  search: string | null
+  error: string | null
+}
+
+export default function (url: string) {
+  let data: apiData = reactive({
     ready: true,
     resourceID: null,
     table: [],
@@ -13,7 +24,7 @@ export default function (url) {
     error: null,
   })
 
-  function setResource(resID) {
+  function setResource(resID: string) {
     data.resourceID = resID
     console.log('api.setResource', resID)
   }
@@ -23,14 +34,14 @@ export default function (url) {
     data.search = null
   }
 
-  function load() {
+  function load(): void {
     data.table = []
     data.ready = false
     data.count = 0
-    parseInt(data.paginationMode) ? _loadAll() : _load()
+    !!+data.paginationMode ? _loadAll() : _load()
   }
 
-  async function _load() {
+  async function _load(): Promise<void> {
     try {
       const response = await axios.get(url + data.resourceID, {
         params: {
@@ -42,9 +53,10 @@ export default function (url) {
       data.count = response.data.count
       data.ready = true
       console.log(
-        'api.load: search=%s, page=%d',
+        'api.load: search=%s, page=%d, count=%d, url=%s',
         data.search,
         data.page,
+        data.table.length,
         response.config.url
       )
     } catch (error) {
@@ -52,7 +64,7 @@ export default function (url) {
     }
   }
 
-  async function _loadAll() {
+  async function _loadAll(): Promise<void> {
     let _url = url + data.resourceID
     do {
       try {
@@ -79,3 +91,5 @@ export default function (url) {
 
   return { data, load, setResource, clearParams }
 }
+
+export type { apiData }
