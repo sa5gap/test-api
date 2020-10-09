@@ -6,7 +6,7 @@ module.exports = (env, options) => {
   const { src, dist } = paths()
 
   return webpackConfig(env, options, {
-    entry: { app: src('index.js') },
+    entry: { app: src('index.ts') },
     plugins: {
       copy: [],
       html: [

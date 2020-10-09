@@ -103,6 +103,23 @@ module.exports.default = (
           //   },
           // ],
         },
+        // ts
+        {
+          test: /\.ts$/,
+          use: [
+            {
+              loader: 'babel-loader',
+            },
+            {
+              loader: 'ts-loader',
+              options: {
+                transpileOnly: true,
+                appendTsSuffixTo: ['\\.vue$'],
+                happyPackMode: isProd,
+              },
+            },
+          ],
+        },
         // scss
         {
           test: /\.(scss|css)$/,
