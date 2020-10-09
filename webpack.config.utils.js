@@ -1,4 +1,4 @@
-// vue.js 3 webpack config
+// vue.js 3 webpack config utils
 // https://github.com/sa5gap/vue3-webpack-boilerplate
 // inspired by https://github.com/starkovsky/vue3-webpack-boilerplate
 
@@ -7,6 +7,7 @@ const { join, resolve } = require('path')
 const { DefinePlugin, HashedModuleIdsPlugin } = require('webpack')
 const { VueLoaderPlugin } = require('vue-loader')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
@@ -336,6 +337,23 @@ module.exports.default = (
 
     plugins: [
       new VueLoaderPlugin(),
+
+      // ts type checker {{{
+      new ForkTsCheckerWebpackPlugin({
+        typescript: {
+          extensions: {
+            vue: {
+              enabled: true,
+              compiler: '@vue/compiler-sfc',
+            },
+          },
+          diagnosticOptions: {
+            semantic: true,
+            syntactic: isProd,
+          },
+        },
+      }),
+      // }}}
 
       // define {{{
       ...(plugins.define || [
